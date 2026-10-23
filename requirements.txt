@@ -8,3 +8,4 @@ uvicorn[standard]==0.54.0
 python-multipart==0.0.32
 onnx==1.23.2
 onnxruntime==1.29.0
+httpx==0.28.1
