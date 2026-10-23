@@ -11,3 +11,4 @@ ignore = ["B008"]  # FastAPI's File()/Depends() in argument defaults is idiomati
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
