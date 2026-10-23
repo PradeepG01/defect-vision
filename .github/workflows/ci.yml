@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install (CPU PyTorch)
+        run: |
+          pip install torch==2.14.1 torchvision==0.29.1 --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt pytest ruff
+      - run: ruff check .
+      - run: pytest -q
+      - name: Train and export (smoke run)
+        run: |
+          python -m defect_vision.train --samples 1500 --epochs 4 --out artifacts
+          python -m defect_vision.export --weights artifacts/defect_cnn.pt --out artifacts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: model-artifacts
+          path: artifacts/

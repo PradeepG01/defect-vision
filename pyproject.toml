@@ -1,0 +1,13 @@
+[project]
+name = "defect-vision"
+version = "1.0.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+ignore = ["B008"]  # FastAPI's File()/Depends() in argument defaults is idiomatic
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
